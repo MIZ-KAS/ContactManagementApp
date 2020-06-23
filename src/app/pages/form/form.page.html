@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="!status">Add New Contact</ion-title>
+    <ion-title *ngIf="status">Edit Contact</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="12" size-md="6" offset-md="3">
+      <create-contact [contactId]="Id"></create-contact>
+    </ion-col>
+  </ion-row>
+</ion-content>

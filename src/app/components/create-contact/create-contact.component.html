@@ -1,0 +1,36 @@
+<form [formGroup]="contact_form" (ngSubmit)="(contactId) ? updateContact(contact_form.value) : createContact(contact_form.value)">
+  <ion-item lines="none">
+    <ion-label  position="stacked" color="dark" >First Name</ion-label>
+    <ion-input type="text" placeholder="first name" formControlName="firstName"></ion-input>
+  </ion-item>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of validation_messages.firstName">
+      <div class="error-message" *ngIf="contact_form.get('firstName').hasError(validation.type) && (contact_form.get('firstName').dirty || contact_form.get('firstName').touched)">
+        {{ validation.message }}
+      </div>
+    </ng-container>
+  </div>
+  <ion-item lines="none">
+    <ion-label  position="stacked" color="dark" >last Name</ion-label>
+    <ion-input type="text" placeholder="last name" formControlName="lastName"></ion-input>
+  </ion-item>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of validation_messages.lastName">
+      <div class="error-message" *ngIf="contact_form.get('lastName').hasError(validation.type) && (contact_form.get('lastName').dirty || contact_form.get('lastName').touched)">
+        {{ validation.message }}
+      </div>
+    </ng-container>
+  </div>
+  <ion-item lines="none">
+    <ion-label  position="stacked" color="dark" >Phone Number</ion-label>
+    <ion-input type="text" placeholder="phone number" formControlName="number"></ion-input>
+  </ion-item>
+
+  <ion-button *ngIf="!contactId" type="submit" expand="block">
+    Save Contact
+  </ion-button>
+
+  <ion-button *ngIf="contactId" type="submit" expand="block">
+    Update Contact
+  </ion-button>
+</form>
