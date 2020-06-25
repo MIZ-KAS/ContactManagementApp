@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StorageProvider } from '../storage/storage';
+import { async } from '@angular/core/testing';
+import { rejects } from 'assert';
 
 @Injectable({
   providedIn: 'root'
@@ -51,22 +53,42 @@ export class ContactsService {
   //   });
   // }
 
-  async deleteContact() {
-    return await new Promise(async (resolve, reject) => {
-      try {
-        const contacts: any = await this._storageServices.removeItem("contacts")
-        this.contacts = this.objectToArray(contacts);
-        resolve(this.contacts || [])
-      }catch(ex) {
-        reject(ex.message || ex.error || ex)
-      }
+  // async deleteContact() {
+  //   return await new Promise(async (resolve, reject) => {
+  //     try {
+  //       const contacts: any = await this._storageServices.removeItem("contacts")
+  //       this.contacts = this.objectToArray(contacts);
+  //       resolve(this.contacts || [])
+  //     }catch(ex) {
+  //       reject(ex.message || ex.error || ex)
+  //     }
+  //   });
+  // }
+  
+  async deleteContact(id: any) {
+    return await new Promise(async(resolve, reject) => {
+      try { 
+        delete this.contacts[id]
+        const del: any = await this.addContact(this.contacts); 
+        if(del !=='contact saved') throw new Error(`{id} not deleted`); resolve(`contact ${id} deleted`)} catch(ex) { reject(ex.message || ex.error || ex)}
     });
   }
 
-
-  editContact() {
-
+  async editContact(id: any, form: any) {
+    return await new Promise(async(resolve, reject) => {
+      try { 
+        this.contacts[id] = form
+        const del: any = await this.addContact(this.contacts); 
+        if(del !=='contact saved') throw new Error(`{id} not updated`); resolve(`contact ${id} updated`)} catch(ex) { reject(ex.message || ex.error || ex)}
+    });
   }
+  
+  
+
+  // editContact() {
+
+  // }
+  
 
   
 

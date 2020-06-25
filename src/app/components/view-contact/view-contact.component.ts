@@ -27,7 +27,14 @@ export class ViewContactComponent implements OnInit {
 
   delectContact(index: any){
     this._contacServices.contacts.splice(index, 1);
-    window.location.reload();
+  }
+
+  async updateContact(form: any) {
+    const response = await this._contacServices.editContact(this.ContactId, form)
+    console.log(response);
+  }
+  ContactId(ContactId: any, form: any) {
+    throw new Error("Method not implemented.");
   }
 
 }
